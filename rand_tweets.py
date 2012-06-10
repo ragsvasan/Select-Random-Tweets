@@ -14,19 +14,19 @@ Output is in JSON format that can be converted into CSV easily
 random.seed(time.time())
 
 '''
-Select 100 random tweets. Since the API to get single tweet with exact id 
-is not effective I use here search api call with max_id set to random id and the number of entries per page set to 1. Likely you will get a few tweets per call.
+Select 400 random tweets. Since the API to get single tweet with exact id 
+is not effective I use here search api call with max_id set to random id and the number of entries per page set to 100. 
 This also means I should set some value for 'q' parameter, here I set it to 'a' since it is likely to appear in all tweets.
 '''
 
 print  '{'
-for x in range (1,100):
+for page in range (1,4):
 	rand = random.random()
 	id = str(long( rand*1000000000000000000 ))
 	query_params = { 'q':'a',
        	'include_entities':'true', 'lang':'en',
          'show_user':'true',
-         'rpp': '1',
+         'rpp': '100', 'page': page,
          'result_type': 'mixed',
        	 'max_id':id}
 	r = requests.get('http://search.twitter.com/search.json',
